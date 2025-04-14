@@ -43,6 +43,8 @@ android {
 
 dependencies {
 
+    implementation(project(":core:base"))
+
     implementation(project(":core:feature-interaction:api"))
     implementation(project(":core:feature-interaction:impl"))
 
