@@ -94,6 +94,7 @@ internal fun ImageScreen(
         ButtonsView(
             modifier = Modifier
                 .align(Alignment.BottomCenter)
+                .padding(horizontal = 16.dp)
                 .padding(bottom = 16.dp),
             onClickGetMessage = { onEvent(MainEvents.GetMessageClicked) },
             onClickGetImage = { onEvent(MainEvents.GetImageClicked) }
@@ -119,7 +120,6 @@ internal fun ButtonsView(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp)
             .then(modifier)
     ) {
         Button(

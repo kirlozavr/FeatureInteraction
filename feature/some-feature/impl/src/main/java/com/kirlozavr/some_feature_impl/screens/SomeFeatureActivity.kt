@@ -4,6 +4,8 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import com.kirlozavr.some_feature_api.SomeFeatureArgs
+import com.kirlozavr.some_feature_impl.screens.ui.SomeScreenRoot
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -12,8 +14,21 @@ internal class SomeFeatureActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        registerBackPressedDispatcher()
         setContent {
+            when(getArgs()) {
+                is SomeFeatureArgs -> {
+                    SomeScreenRoot(
+                        onFinished = {
 
+                        }
+                    )
+                }
+                else -> {
+                    val exception = NullPointerException("The input args are null")
+                    finishFailure(exception)
+                }
+            }
         }
     }
 

@@ -17,12 +17,8 @@ internal class MainViewModel @Inject constructor(
 
     override fun onEvent(event: MainEvents) {
         when (event) {
-            MainEvents.GetImageClicked -> {
-                getImage()
-            }
-            MainEvents.GetMessageClicked -> {
-                getMessage()
-            }
+            MainEvents.GetImageClicked -> getImage()
+            MainEvents.GetMessageClicked -> getMessage()
         }
     }
 
@@ -32,7 +28,7 @@ internal class MainViewModel @Inject constructor(
                 setState(MainStates.ShowImage(result.absolutePath))
             },
             onFailure = { throwable, durationInMills ->
-                setState(MainStates.ShowMessage("The result is failure, throwable = ${throwable}, durationInMills = $durationInMills milliseconds"))
+                setState(MainStates.ShowMessage("The result of getting an image is failure, throwable = ${throwable}, durationInMills = $durationInMills milliseconds"))
             }
         )
     }
