@@ -16,11 +16,12 @@ internal class SomeFeatureActivity : ComponentActivity() {
         enableEdgeToEdge()
         registerBackPressedDispatcher()
         setContent {
-            when(getArgs()) {
+            when(val args = getArgs()) {
                 is SomeFeatureArgs -> {
                     SomeScreenRoot(
+                        args = args,
                         onFinished = {
-
+                            finishSuccess(it)
                         }
                     )
                 }

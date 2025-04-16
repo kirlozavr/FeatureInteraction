@@ -26,7 +26,8 @@ internal fun SomeScreen(
         OutlinedTextField(
             value = state.text,
             onValueChange = { onEvent(SomeFeatureEvents.TextEdited(it)) },
-            modifier = Modifier.align(Alignment.Center)
+            modifier = Modifier.align(Alignment.Center),
+            placeholder = { Text(text = state.previewMessage) },
         )
         SaveButtonView(
             onClick = { onEvent(SomeFeatureEvents.SaveResultClicked) },

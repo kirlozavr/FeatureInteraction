@@ -27,6 +27,12 @@ internal class SomeFeatureViewModel @Inject constructor(
                     SomeFeatureStates.ShowScreen(result)
                 }
             }
+
+            is SomeFeatureEvents.InputDataReceived -> {
+                updateStateIf<SomeFeatureStates.ShowScreen> {
+                    copy(previewMessage = event.input)
+                }
+            }
         }
     }
 }

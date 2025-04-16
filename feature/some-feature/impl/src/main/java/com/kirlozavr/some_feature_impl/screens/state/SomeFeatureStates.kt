@@ -5,6 +5,7 @@ import com.kirlozavr.base.States
 internal sealed class SomeFeatureStates: States {
 
     data class ShowScreen(
+        val previewMessage: String = "",
         val text: String = ""
     ): SomeFeatureStates()
 
