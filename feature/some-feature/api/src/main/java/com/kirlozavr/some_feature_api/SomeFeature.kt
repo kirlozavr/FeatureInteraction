@@ -8,7 +8,7 @@ interface SomeFeature {
     @MainThread
     fun launchSomeFeature(
         input: SomeFeatureArgs,
-        onSuccess: (SomeFeatureResult.Success, durationInMills: Long) -> Unit = { _, _ -> },
+        onSuccess: (result: SomeFeatureResult.Success, durationInMills: Long) -> Unit = { _, _ -> },
         onFailure: (result: SomeFeatureResult.Failure, durationInMills: Long) -> Unit = { _, _ -> },
         onCancelled: (durationInMills: Long) -> Unit = {  }
     )

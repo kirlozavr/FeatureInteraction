@@ -11,6 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.kirlozavr.featureinteraction.screens.ui.MainScreenRoot
 import com.kirlozavr.featureinteraction.ui.theme.FeatureInteractionTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -21,7 +22,7 @@ internal class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-
+            MainScreenRoot()
         }
     }
 }
