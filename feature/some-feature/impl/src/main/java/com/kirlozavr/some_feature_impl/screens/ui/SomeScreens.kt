@@ -1,6 +1,7 @@
 package com.kirlozavr.some_feature_impl.screens.ui
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -41,8 +42,9 @@ internal fun SomeScreen(
             }
         },
         bottomBar = {
-            SaveButtonView(
-                onClick = { onEvent(SomeFeatureEvents.SaveResultClicked) },
+            ButtonsView(
+                onClickSaveResult = { onEvent(SomeFeatureEvents.SaveResultClicked) },
+                onClickCancel = { onEvent(SomeFeatureEvents.CancelClicked) },
                 modifier = Modifier
                     .padding(horizontal = 16.dp)
                     .padding(bottom = 16.dp)
@@ -61,17 +63,41 @@ private fun SomeScreen_Preview() {
 }
 
 @Composable
-internal fun SaveButtonView(
-    onClick: () -> Unit,
+internal fun ButtonsView(
+    onClickSaveResult: () -> Unit,
+    onClickCancel: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Button(
+    Row(
         modifier = Modifier
             .fillMaxWidth()
-            .height(48.dp)
-            .then(modifier),
-        onClick = onClick
+            .then(modifier)
     ) {
-        Text(text = "Save result")
+        Button(
+            modifier = Modifier
+                .height(48.dp)
+                .weight(1f),
+            onClick = onClickCancel
+        ) {
+            Text(text = "Cancel")
+        }
+        Button(
+            modifier = Modifier
+                .height(48.dp)
+                .weight(1f)
+                .padding(start = 8.dp),
+            onClick = onClickSaveResult
+        ) {
+            Text(text = "Save result")
+        }
     }
+}
+
+@Preview
+@Composable
+private fun ButtonsView_Preview(){
+    ButtonsView(
+        onClickSaveResult = {  },
+        onClickCancel = {  }
+    )
 }

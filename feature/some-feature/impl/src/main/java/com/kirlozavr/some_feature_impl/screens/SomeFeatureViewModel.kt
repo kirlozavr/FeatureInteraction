@@ -33,6 +33,8 @@ internal class SomeFeatureViewModel @Inject constructor(
                     copy(previewMessage = event.input)
                 }
             }
+
+            SomeFeatureEvents.CancelClicked -> setState(SomeFeatureStates.CancelFeature)
         }
     }
 }

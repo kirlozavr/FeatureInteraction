@@ -13,4 +13,6 @@ internal sealed class SomeFeatureEvents: Events {
     ): SomeFeatureEvents()
 
     data object SaveResultClicked: SomeFeatureEvents()
+
+    data object CancelClicked: SomeFeatureEvents()
 }

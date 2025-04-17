@@ -13,6 +13,8 @@ internal sealed class SomeFeatureStates: States {
         val text: String
     ): SomeFeatureStates()
 
+    data object CancelFeature: SomeFeatureStates()
+
     companion object : States.WithInitial<ShowScreen> {
         override val INITIAL = ShowScreen()
     }

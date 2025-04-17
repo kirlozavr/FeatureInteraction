@@ -24,6 +24,9 @@ internal class SomeFeatureActivity : ComponentActivity() {
                         args = args,
                         onFinished = {
                             finishSuccess(it)
+                        },
+                        onCanceled = {
+                            finishCancelled()
                         }
                     )
                 }

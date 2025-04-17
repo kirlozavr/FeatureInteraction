@@ -17,7 +17,8 @@ import com.kirlozavr.some_feature_impl.screens.state.SomeFeatureStates
 @Composable
 internal fun SomeScreenRoot(
     args: SomeFeatureArgs,
-    onFinished: (String) -> Unit
+    onFinished: (String) -> Unit,
+    onCanceled: () -> Unit
 ) {
     val viewModel = hiltViewModel<SomeFeatureViewModel>()
     val states = viewModel.viewStateFlow.collectAsStateWithLifecycle()
@@ -35,5 +36,6 @@ internal fun SomeScreenRoot(
             )
         }
         is SomeFeatureStates.FinishFeature -> onFinished(state.text)
+        SomeFeatureStates.CancelFeature -> onCanceled()
     }
 }

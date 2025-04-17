@@ -138,9 +138,9 @@ private fun ImageScreen_Preview() {
 
 @Composable
 internal fun ButtonsView(
-    modifier: Modifier = Modifier,
     onClickGetMessage: () -> Unit,
-    onClickGetImage: () -> Unit
+    onClickGetImage: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
     Row(
         modifier = Modifier
@@ -165,4 +165,13 @@ internal fun ButtonsView(
             Text(text = "Get Image")
         }
     }
+}
+
+@Preview
+@Composable
+private fun ButtonsView_Preview(){
+    ButtonsView(
+        onClickGetMessage = {  },
+        onClickGetImage = {  }
+    )
 }
