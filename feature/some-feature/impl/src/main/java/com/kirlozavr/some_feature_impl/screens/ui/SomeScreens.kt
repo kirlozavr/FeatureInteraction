@@ -3,6 +3,7 @@ package com.kirlozavr.some_feature_impl.screens.ui
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.OutlinedTextField
@@ -67,6 +68,7 @@ internal fun SaveButtonView(
     Button(
         modifier = Modifier
             .fillMaxWidth()
+            .height(48.dp)
             .then(modifier),
         onClick = onClick
     ) {

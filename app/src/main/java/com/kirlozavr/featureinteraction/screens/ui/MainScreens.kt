@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
@@ -147,13 +148,16 @@ internal fun ButtonsView(
             .then(modifier)
     ) {
         Button(
-            modifier = Modifier.weight(1f),
+            modifier = Modifier
+                .height(48.dp)
+                .weight(1f),
             onClick = onClickGetMessage
         ) {
             Text(text = "Get Message")
         }
         Button(
             modifier = Modifier
+                .height(48.dp)
                 .weight(1f)
                 .padding(start = 8.dp),
             onClick = onClickGetImage
