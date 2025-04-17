@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.core.view.WindowCompat
 import com.kirlozavr.some_feature_api.SomeFeatureArgs
 import com.kirlozavr.some_feature_impl.screens.ui.SomeScreenRoot
 import dagger.hilt.android.AndroidEntryPoint
@@ -13,6 +14,7 @@ internal class SomeFeatureActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        WindowCompat.setDecorFitsSystemWindows(window, false)
         enableEdgeToEdge()
         registerBackPressedDispatcher()
         setContent {
@@ -26,7 +28,7 @@ internal class SomeFeatureActivity : ComponentActivity() {
                     )
                 }
                 else -> {
-                    val exception = NullPointerException("The input args are null")
+                    val exception = IllegalArgumentException("The input args are null")
                     finishFailure(exception)
                 }
             }

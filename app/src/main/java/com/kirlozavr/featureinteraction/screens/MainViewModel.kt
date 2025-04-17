@@ -25,10 +25,10 @@ internal class MainViewModel @Inject constructor(
     private fun getImage() {
         someFeature.launchTakePictureFromGallery(
             onSuccess = { result, durationInMills ->
-                setState(MainStates.ShowImage(result.absolutePath))
+                setState(MainStates.ShowImage(result))
             },
             onFailure = { throwable, durationInMills ->
-                setState(MainStates.ShowMessage("The result of getting an image is failure, throwable = ${throwable}, durationInMills = $durationInMills milliseconds"))
+                setState(MainStates.ShowMessage("The result of getting an image is failure, \nthrowable = ${throwable}, \ndurationInMills = $durationInMills milliseconds"))
             }
         )
     }
@@ -37,13 +37,13 @@ internal class MainViewModel @Inject constructor(
         someFeature.launchSomeFeature(
             input = SomeFeatureArgs("Please, input some text"),
             onSuccess = { result, durationInMills ->
-                setState(MainStates.ShowMessage("The result is success, message = ${result.message}, durationInMills = $durationInMills milliseconds"))
+                setState(MainStates.ShowMessage("The result is success, \nmessage = ${result.message}, \ndurationInMills = $durationInMills milliseconds"))
             },
             onFailure = { throwable, durationInMills ->
-                setState(MainStates.ShowMessage("The result is failure, throwable = ${throwable}, durationInMills = $durationInMills milliseconds"))
+                setState(MainStates.ShowMessage("The result is failure, \nthrowable = ${throwable}, \ndurationInMills = $durationInMills milliseconds"))
             },
             onCancelled = { durationInMills ->
-                setState(MainStates.ShowMessage("The operation was cancelled, durationInMills = $durationInMills milliseconds"))
+                setState(MainStates.ShowMessage("The operation was cancelled, \ndurationInMills = $durationInMills milliseconds"))
             }
         )
     }

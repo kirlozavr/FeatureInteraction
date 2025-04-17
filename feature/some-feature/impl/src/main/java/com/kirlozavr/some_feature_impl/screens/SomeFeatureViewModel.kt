@@ -24,7 +24,7 @@ internal class SomeFeatureViewModel @Inject constructor(
             is SomeFeatureEvents.SaveResultClicked -> {
                 updateStateIf<SomeFeatureStates.ShowScreen> {
                     val result = copy().text
-                    SomeFeatureStates.ShowScreen(result)
+                    SomeFeatureStates.FinishFeature(result)
                 }
             }
 

@@ -1,7 +1,6 @@
 package com.kirlozavr.some_feature_api
 
 import androidx.annotation.MainThread
-import java.io.File
 
 interface SomeFeature {
 
@@ -15,7 +14,7 @@ interface SomeFeature {
 
     @MainThread
     fun launchTakePictureFromGallery(
-        onSuccess: (imageFile: File, durationInMills: Long) -> Unit = { _, _ -> },
+        onSuccess: (imageUri: String, durationInMills: Long) -> Unit = { _, _ -> },
         onFailure: (throwable: Throwable, durationInMills: Long) -> Unit = { _, _ -> }
     )
 }

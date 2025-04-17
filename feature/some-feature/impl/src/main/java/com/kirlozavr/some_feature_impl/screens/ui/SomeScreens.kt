@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -18,25 +19,35 @@ import com.kirlozavr.some_feature_impl.screens.state.SomeFeatureStates
 @Composable
 internal fun SomeScreen(
     state: SomeFeatureStates.ShowScreen,
-    onEvent: (SomeFeatureEvents) -> Unit
+    onEvent: (SomeFeatureEvents) -> Unit,
+    modifier: Modifier = Modifier
 ) {
-    Box(
-        modifier = Modifier.fillMaxSize()
-    ) {
-        OutlinedTextField(
-            value = state.text,
-            onValueChange = { onEvent(SomeFeatureEvents.TextEdited(it)) },
-            modifier = Modifier.align(Alignment.Center),
-            placeholder = { Text(text = state.previewMessage) },
-        )
-        SaveButtonView(
-            onClick = { onEvent(SomeFeatureEvents.SaveResultClicked) },
-            modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .padding(horizontal = 16.dp)
-                .padding(bottom = 16.dp)
-        )
-    }
+    Scaffold(
+        modifier = modifier,
+        content = { padding ->
+            Box(
+                modifier = Modifier
+                    .padding(padding)
+                    .fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                OutlinedTextField(
+                    value = state.text,
+                    onValueChange = { onEvent(SomeFeatureEvents.TextEdited(it)) },
+                    modifier = Modifier.align(Alignment.Center),
+                    placeholder = { Text(text = state.previewMessage) },
+                )
+            }
+        },
+        bottomBar = {
+            SaveButtonView(
+                onClick = { onEvent(SomeFeatureEvents.SaveResultClicked) },
+                modifier = Modifier
+                    .padding(horizontal = 16.dp)
+                    .padding(bottom = 16.dp)
+            )
+        }
+    )
 }
 
 @Preview(showSystemUi = true)

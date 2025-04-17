@@ -12,7 +12,7 @@ internal class ActivityProviderInitializer : ContentProvider() {
     override fun onCreate(): Boolean {
         val applicationContext = context?.applicationContext
         if (applicationContext == null) {
-            throw NullPointerException("Application context is null")
+            throw IllegalStateException("Application context is null")
         }
 
         val entryPoint = EntryPointAccessors.fromApplication(

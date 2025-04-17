@@ -1,9 +1,9 @@
 package com.kirlozavr.feature_interaction_impl.managers
 
-import androidx.fragment.app.FragmentActivity
+import android.app.Activity
 import kotlinx.coroutines.flow.StateFlow
 
 internal interface ActivityProvider {
 
-    val currentActivityFlow: StateFlow<FragmentActivity?>
+    val currentActivityFlow: StateFlow<Activity?>
 }

@@ -1,25 +1,26 @@
 package com.kirlozavr.feature_interaction_impl.extensions
 
+import android.app.Activity
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import androidx.activity.ComponentActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import kotlinx.coroutines.flow.StateFlow
 
-internal fun StateFlow<FragmentActivity?>.getOrThrow(): FragmentActivity {
-    val current = value
-    if (current == null) {
-        throw NullPointerException(
-            "Activity must be initialized before launching. " +
-                    "At least the must be called Activity::onCreate"
-        )
-    }
-    return current
+internal fun StateFlow<Activity?>.getOrThrow(): ComponentActivity {
+    val current = value ?: throw NullPointerException("Activity must be initialized...")
+    if (current is ComponentActivity) return current
+    throw IllegalStateException("Expected ${T::class.java.simpleName}, but got ${current::class.java.simpleName}")
 }
 
-internal fun FragmentActivity.getNearestLifecycle(): Lifecycle {
-    val currentFragment = getNearestVisibleFragment(supportFragmentManager)
-    return currentFragment?.viewLifecycleOwner?.lifecycle ?: lifecycle
+internal fun ComponentActivity.getNearestLifecycle(): Lifecycle {
+    if (this is FragmentActivity) {
+        val currentFragment = getNearestVisibleFragment(supportFragmentManager)
+        return currentFragment?.viewLifecycleOwner?.lifecycle ?: lifecycle
+    }
+    return lifecycle
 }
 
 private fun getNearestVisibleFragment(fragmentManager: FragmentManager): Fragment? {

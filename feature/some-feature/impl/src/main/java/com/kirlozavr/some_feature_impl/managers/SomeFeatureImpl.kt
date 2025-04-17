@@ -42,7 +42,7 @@ internal class SomeFeatureImpl @Inject constructor(
     }
 
     override fun launchTakePictureFromGallery(
-        onSuccess: (imageFile: File, durationInMills: Long) -> Unit,
+        onSuccess: (imageUri: String, durationInMills: Long) -> Unit,
         onFailure: (throwable: Throwable, durationInMills: Long) -> Unit
     ) {
         featureManager.launch(
@@ -52,7 +52,7 @@ internal class SomeFeatureImpl @Inject constructor(
             output = {
                 val uri = it.output
                 if (uri != null) {
-                    onSuccess(uri.toFile(), it.durationInMills)
+                    onSuccess(uri.toString(), it.durationInMills)
                 } else {
                     val exception = NullPointerException("The uri from gallery picker is null")
                     onFailure(exception, it.durationInMills)

@@ -14,7 +14,7 @@ import dagger.hilt.components.SingletonComponent
 internal abstract class ManagersModule {
 
     @Binds
-    internal abstract fun bindActivityResultProvider(implementation: ActivityProviderImpl): ActivityProvider
+    internal abstract fun bindActivityProvider(implementation: ActivityProviderImpl): ActivityProvider
 
     @Binds
     internal abstract fun bindFeatureManager(implementation: FeatureManagerImpl): FeatureManager

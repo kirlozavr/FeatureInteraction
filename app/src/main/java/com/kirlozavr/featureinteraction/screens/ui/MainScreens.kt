@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -19,14 +20,18 @@ import com.kirlozavr.featureinteraction.screens.state.MainStates
 
 @Composable
 internal fun EmptyScreen(
-    onEvent: (MainEvents) -> Unit
+    onEvent: (MainEvents) -> Unit,
+    modifier: Modifier = Modifier
 ) {
     Box(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier
+            .fillMaxSize()
+            .then(modifier)
     ) {
         ButtonsView(
             modifier = Modifier
                 .align(Alignment.BottomCenter)
+                .padding(horizontal = 16.dp)
                 .padding(bottom = 16.dp),
             onClickGetMessage = { onEvent(MainEvents.GetMessageClicked) },
             onClickGetImage = { onEvent(MainEvents.GetImageClicked) }
@@ -45,25 +50,35 @@ private fun EmptyScreen_Preview() {
 @Composable
 internal fun MessageScreen(
     state: MainStates.ShowMessage,
-    onEvent: (MainEvents) -> Unit
+    onEvent: (MainEvents) -> Unit,
+    modifier: Modifier = Modifier
 ) {
-    Box(
-        modifier = Modifier.fillMaxSize()
-    ) {
-        Text(
-            text = state.message,
-            modifier = Modifier
-                .align(Alignment.Center),
-            fontSize = 24.sp
-        )
-        ButtonsView(
-            modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .padding(bottom = 16.dp),
-            onClickGetMessage = { onEvent(MainEvents.GetMessageClicked) },
-            onClickGetImage = { onEvent(MainEvents.GetImageClicked) }
-        )
-    }
+    Scaffold(
+        modifier = modifier,
+        content = { padding ->
+            Box(
+                modifier = Modifier
+                    .padding(padding)
+                    .fillMaxSize(),
+               contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = state.message,
+                    modifier = Modifier.padding(16.dp),
+                    fontSize = 20.sp
+                )
+            }
+        },
+        bottomBar = {
+            ButtonsView(
+                modifier = Modifier
+                    .padding(horizontal = 16.dp)
+                    .padding(bottom = 16.dp),
+                onClickGetMessage = { onEvent(MainEvents.GetMessageClicked) },
+                onClickGetImage = { onEvent(MainEvents.GetImageClicked) }
+            )
+        }
+    )
 }
 
 @Preview(showSystemUi = true)
@@ -78,28 +93,37 @@ private fun MessageScreen_Preview() {
 @Composable
 internal fun ImageScreen(
     state: MainStates.ShowImage,
-    onEvent: (MainEvents) -> Unit
+    onEvent: (MainEvents) -> Unit,
+    modifier: Modifier = Modifier
 ) {
-    Box(
-        modifier = Modifier.fillMaxSize()
-    ) {
-        AsyncImage(
-            model = state.photoPath,
-            contentDescription = null,
-            modifier = Modifier
-                .fillMaxSize()
-                .align(Alignment.Center)
-                .padding(16.dp)
-        )
-        ButtonsView(
-            modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .padding(horizontal = 16.dp)
-                .padding(bottom = 16.dp),
-            onClickGetMessage = { onEvent(MainEvents.GetMessageClicked) },
-            onClickGetImage = { onEvent(MainEvents.GetImageClicked) }
-        )
-    }
+    Scaffold(
+        modifier = modifier,
+        content = { padding ->
+            Box(
+                modifier = Modifier
+                    .padding(padding)
+                    .fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                AsyncImage(
+                    model = state.photoPath,
+                    contentDescription = null,
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(16.dp)
+                )
+            }
+        },
+        bottomBar = {
+            ButtonsView(
+                modifier = Modifier
+                    .padding(horizontal = 16.dp)
+                    .padding(bottom = 16.dp),
+                onClickGetMessage = { onEvent(MainEvents.GetMessageClicked) },
+                onClickGetImage = { onEvent(MainEvents.GetImageClicked) }
+            )
+        }
+    )
 }
 
 @Preview(showSystemUi = true)
