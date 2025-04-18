@@ -4,6 +4,7 @@ import android.app.Activity
 import android.app.Application
 import android.content.Context
 import android.os.Bundle
+import androidx.activity.ComponentActivity
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -19,8 +20,8 @@ internal class ActivityProviderImpl @Inject constructor(
 
     private var isInitialized: Boolean = false
 
-    private val _currentActivityFlow = MutableStateFlow<Activity?>(null)
-    override val currentActivityFlow: StateFlow<Activity?> get() = requireInitialized()
+    private val _currentActivityFlow = MutableStateFlow<ComponentActivity?>(null)
+    override val currentActivityFlow: StateFlow<ComponentActivity?> get() = requireInitialized()
 
     init {
         (applicationContext as Application).registerActivityLifecycleCallbacks(this)
@@ -50,6 +51,7 @@ internal class ActivityProviderImpl @Inject constructor(
     }
 
     private fun updateIfNeeded(activity: Activity) {
+        if (activity !is ComponentActivity) return
         if (currentActivityFlow.value != activity) {
             _currentActivityFlow.value = activity
         }
@@ -61,11 +63,11 @@ internal class ActivityProviderImpl @Inject constructor(
         }
     }
 
-    private fun requireInitialized(): StateFlow<Activity?> {
+    private fun requireInitialized(): StateFlow<ComponentActivity?> {
         if (!isInitialized) {
             throw IllegalStateException(
-                "ActivityLifecycleInitializer is not initialized. " +
-                        "Please call initialize() method in your Application class."
+                "ActivityProvider must be initialized before use. " +
+                        "Please call the constructor with the application context."
             )
         }
         return _currentActivityFlow.asStateFlow()
