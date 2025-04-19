@@ -54,6 +54,8 @@ And further usage looks something like this in your ViewModel or somewhere else.
     )
 ```
 
+# Example of interaction
+
 Below are the screenshots of example app. 
 
 Screen of feature module where we can input text is presented below:
