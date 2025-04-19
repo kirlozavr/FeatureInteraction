@@ -4,7 +4,7 @@ This Repository is an example of multi-module interaction.
 
 ## How does it work?
 
-This solution based on [ActivityResultApi](https://developer.android.com/training/basics/intents/result). There are ActivityProvider that monitors ths active Activity and FeatureManager that launches our feature using ActivityResultApi and provides the result. Also, FeatureManager handles configuration changes and shuts down correctly to prevent memory-leaks.
+This solution based on [ActivityResultApi](https://developer.android.com/training/basics/intents/result). There are [ActivityProvider](core/feature-interaction/impl/src/main/java/com/kirlozavr/feature_interaction_impl/managers/ActivityProviderImpl.kt) that monitors ths active Activity and [FeatureManager](core/feature-interaction/impl/src/main/java/com/kirlozavr/feature_interaction_impl/managers/FeatureManagerImpl.kt) that launches our feature using ActivityResultApi and provides the result. Also, FeatureManager handles configuration changes and shuts down correctly to prevent memory-leaks.
 
 Base interface for all feature-modules looks like this:
 
@@ -20,7 +20,7 @@ interface FeatureManager {
     )
 }
 ```
-You can create your own contract in any way that suits you. In this example each feature-module implements own contract that depending on the needs.
+You can create your own contract in any way that suits you. In this example each feature-module implements own contract that depending on the needs. Below is [SomeFeature](feature/some-feature/impl/src/main/java/com/kirlozavr/some_feature_impl/managers/SomeFeatureImpl.kt) that implements own contract.
 
 ```kotlin
 interface SomeFeature {
@@ -37,7 +37,7 @@ interface SomeFeature {
 }
 ```
 
-And further usage looks something like this in your ViewModel or somewhere else.
+And further usage looks something like this in your [ViewModel](app/src/main/java/com/kirlozavr/featureinteraction/screens/MainViewModel.kt) or somewhere else.
 
 ```kotlin
     someFeature.launchSomeFeature(

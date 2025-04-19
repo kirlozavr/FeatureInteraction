@@ -1,13 +1,11 @@
 package com.kirlozavr.some_feature_impl.managers
 
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.net.toFile
 import com.kirlozavr.feature_interaction_api.FeatureManager
 import com.kirlozavr.some_feature_api.SomeFeature
 import com.kirlozavr.some_feature_api.SomeFeatureArgs
 import com.kirlozavr.some_feature_api.SomeFeatureResult
 import com.kirlozavr.some_feature_impl.utils.LocalActivityResultContracts
-import java.io.File
 import javax.inject.Inject
 import javax.inject.Singleton
 
