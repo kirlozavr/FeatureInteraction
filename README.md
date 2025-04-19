@@ -54,7 +54,7 @@ And further usage looks something like this in your ViewModel or somewhere else.
     )
 ```
 
-# Example of interaction
+## Example of interaction
 
 Below are the screenshots of example app. 
 
