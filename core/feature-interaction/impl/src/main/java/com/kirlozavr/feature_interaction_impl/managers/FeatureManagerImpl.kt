@@ -9,6 +9,7 @@ import com.kirlozavr.feature_interaction_api.FeatureManager
 import com.kirlozavr.feature_interaction_api.FeatureResult
 import com.kirlozavr.feature_interaction_impl.extensions.getNearestLifecycle
 import com.kirlozavr.feature_interaction_impl.extensions.getOrThrow
+import java.util.concurrent.ConcurrentHashMap
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -16,6 +17,8 @@ import javax.inject.Singleton
 internal class FeatureManagerImpl @Inject constructor(
     private val activityProvider: ActivityProvider
 ): FeatureManager {
+
+    private val pendingMap = ConcurrentHashMap<String, Long>()
 
     override fun <I, O> launch(
         key: String,
@@ -25,13 +28,18 @@ internal class FeatureManagerImpl @Inject constructor(
     ) {
         requireMainThread()
         val activity = activityProvider.currentActivityFlow.getOrThrow()
-        val startedAt = System.currentTimeMillis()
+        val wasLaunched = pendingMap.containsKey(key)
+        val startedAt = pendingMap[key] ?: System.currentTimeMillis()
 
         var activityResultLauncher: ActivityResultLauncher<I>? = null
         val observer = object : DefaultLifecycleObserver {
             override fun onDestroy(owner: LifecycleOwner) {
                 activityResultLauncher?.unregister()
                 owner.lifecycle.removeObserver(this)
+
+                if (!activity.isChangingConfigurations) {
+                    pendingMap.remove(key)
+                }
             }
         }
 
@@ -44,9 +52,13 @@ internal class FeatureManagerImpl @Inject constructor(
             output(featureResult)
             activityResultLauncher?.unregister()
             lifecycle.removeObserver(observer)
+            pendingMap.remove(key)
         }
 
-        activityResultLauncher.launch(input)
+        if (!wasLaunched) {
+            activityResultLauncher.launch(input)
+            pendingMap[key] = startedAt
+        }
     }
 
     private fun getDuration(startedAt: Long): Long {
